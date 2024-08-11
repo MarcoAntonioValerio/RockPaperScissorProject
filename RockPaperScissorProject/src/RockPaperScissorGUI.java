@@ -14,6 +14,9 @@ public class RockPaperScissorGUI extends JFrame {
         //(i.e. setting x,y coordinates and width/height values)
         setLayout(null);
 
+        //terminate the java virtual machine when closing the GUI
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
         //load GUI in the centre of the screen every time we run the application
         setLocationRelativeTo(null);
 
@@ -36,7 +39,17 @@ public class RockPaperScissorGUI extends JFrame {
 
         //add to GUI
         add(computerScoreLabel);
-        ;
+
+        //create computer choice
+        JLabel computerChoice = new JLabel("?");
+        computerChoice.setBounds(175, 118, 98, 81);
+        computerChoice.setFont(new Font("Dialog", Font.PLAIN, 18));
+        computerChoice.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //create a black border around
+        computerChoice.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        add(computerChoice);
+
     }
 
 }

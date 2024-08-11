@@ -1,10 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 //fronted
 public class RockPaperScissorGUI extends JFrame {
     //player buttons
     JButton rockButton, paperButton, scissorButton;
+
+    //will display the choice of the computer
+    JLabel computerChoice;
 
     public RockPaperScissorGUI(){
         //invoke iframe constructor and add title to the GUI
@@ -45,7 +50,7 @@ public class RockPaperScissorGUI extends JFrame {
         add(computerScoreLabel);
 
         //create computer choice
-        JLabel computerChoice = new JLabel("?");
+        computerChoice = new JLabel("?");
         computerChoice.setBounds(175, 118, 98, 81);
         computerChoice.setFont(new Font("Dialog", Font.PLAIN, 18));
         computerChoice.setHorizontalAlignment(SwingConstants.CENTER);
@@ -80,6 +85,38 @@ public class RockPaperScissorGUI extends JFrame {
         scissorButton.setBounds(290, 387, 105, 81);
         scissorButton.setFont(new Font("Dialog", Font.PLAIN, 18));
         add(scissorButton);
+        
+    }
+
+    //displays a message dialog which will show the winner and a try again button to play again
+    private void showDialog(String message){
+        JDialog resultDialog = new JDialog(this, "Result", true);
+        resultDialog.setSize(227, 124);
+        resultDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        resultDialog.setResizable(false);
+
+        //message label
+        JLabel resultLabel = new JLabel(message);
+        resultLabel.setFont(new Font("Dialog", Font.BOLD, 18));
+        resultLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        resultDialog.add(resultLabel, BorderLayout.CENTER);
+
+        //try again button
+        JButton tryAgainButton = new JButton("Try Again?");
+        tryAgainButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //reset computer choice
+                computerChoice.setText("?");
+
+                //close the dialog box
+                resultDialog.dispose();
+            }
+        });
+        resultDialog.add(tryAgainButton, BorderLayout.SOUTH);
+
+        resultDialog.setLocationRelativeTo(this);
+        resultDialog.setVisible(true);
     }
 
 }

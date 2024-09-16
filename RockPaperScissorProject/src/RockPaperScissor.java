@@ -20,6 +20,8 @@ public class RockPaperScissor {
         return computerChoice;
     }
 
+    public String result;
+
     //store the scores so that we can retrieve the values and display it to the frontend
     private int computerScore, playerScore;
 
@@ -38,42 +40,30 @@ public class RockPaperScissor {
         //generate computer choice
         computerChoice = computerChoices[random.nextInt(computerChoices.length)];
 
-        //will contain the returning message indicating the result of the game
-        String result;
-
-        //evaluate the winner
-        if (computerChoice.equals("Rock")){
-            if (playerChoice.equals("Paper")){
-                result = "Player Wins";
-                playerScore++;
-            } else if (playerChoice.equals("Scissors")) {
-                result = "Computer Wins";
-                computerScore++;
-            }else {
-                result = "Draw";
-            }
-        }else if (computerChoice.equals("Paper")){
-            if (playerChoice.equals("Scissors")){
-                result = "Player Wins";
-                playerScore++;
-            } else if (playerChoice.equals("Rock")) {
-                result = "Computer Wins";
-                computerScore++;
-            }else {
-                result = "Draw";
-            }
-        }else{
-            //computer chooses scissors
-            if (playerChoice.equals("Rock")){
-                result = "Player Wins";
-                playerScore++;
-            } else if (playerChoice.equals("Paper")) {
-                result = "Computer Wins";
-                computerScore++;
-            }else {
-                result = "Draw";
-            }
+        switch (computerChoice){
+            case "Rock":
+                victoryCondition("Paper", "Scissor", playerChoice);
+                break;
+            case "Paper":
+                victoryCondition("Scissors", "Rock", playerChoice);
+                break;
+            case "Scissor":
+                victoryCondition("Rock", "Paper", playerChoice);
+                break;
         }
+
         return result;
+    }
+
+    private void victoryCondition(String itsBeatenBy, String winsAgainst, String playerChoice){
+        if (playerChoice.equals(itsBeatenBy)) {
+            result = "Player Wins";
+            playerScore++;
+        } else if (playerChoice.equals(winsAgainst)) {
+            result = "Computer Wins";
+            computerScore++;
+        } else {
+            result = "Draw";
+        }
     }
 }
